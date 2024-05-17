@@ -11,9 +11,13 @@ public class Bartolome {
 	Image spriteDer;
 	boolean dir; // false = Izq
 	boolean estaApoyado;
+	boolean estaSaltando; //false = no esta saltando
+	boolean puedeMoverse; //true = puede
 	double escala;
 	double alto;
 	double ancho;
+	int contadorSalto;
+	int momentum;
 
 	public Bartolome(double x, double y) {
 		this.x = x;
@@ -21,35 +25,65 @@ public class Bartolome {
 		spriteIzq = Herramientas.cargarImagen("bodyIzq.png");
 		spriteDer = Herramientas.cargarImagen("body.png");
 		dir = false;
+		contadorSalto = 0;
+		momentum = 0;
 		estaApoyado = false;
-		escala = 0.3;
+		estaSaltando = false;
+		puedeMoverse = true;
+		escala = 0.2;
 		alto = spriteIzq.getHeight(null) * escala;
 		ancho = spriteIzq.getWidth(null) * escala;
 	}
 
 	public void mostrar(Entorno e) {
+		
 		if (dir) {
 			e.dibujarImagen(spriteDer, x, y, 0, escala);
 		} else {
 			e.dibujarImagen(spriteIzq, x, y, 0, escala);
 		}
+		e.dibujarRectangulo(x, y, ancho, contadorSalto, alto, null);
 	}
 
 	public void moverse(boolean dirMov) {
 		if (estaApoyado) {
-			if (dirMov) {
+			if (dirMov && puedeMoverse) {
 				this.x += 1;
-			} else {
+				this.momentum = 1;
+			} else if (puedeMoverse){
 				this.x -= 1;
+				this.momentum = -1;
 			}
 			this.dir = dirMov;
 		}
 	}
 
-	public void caer() {
-		if (!estaApoyado) {
+	public void movVertical() {
+		if (!estaApoyado && !estaSaltando) {
 			this.y += 1;
+			if(this.momentum==1 && puedeMoverse) {
+				this.x += 1;
+			}
+			if(this.momentum==-1 && puedeMoverse) {
+				this.x -= 1;
+			}
 		}
+
+		if(estaSaltando) {
+			this.y -= 7;
+			contadorSalto++;
+			if(this.momentum==1 && puedeMoverse) {
+				this.x += 1;
+			}
+			if(this.momentum==-1 && puedeMoverse) {
+				this.x -= 1;
+			}
+		}
+		if(contadorSalto == 20) {
+			contadorSalto = 0;
+			estaSaltando = false;
+		}
+		
 	}
 
 	public double getTecho() {
