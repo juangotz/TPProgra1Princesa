@@ -43,11 +43,11 @@ public class Bartolome {
 		}
 		e.dibujarRectangulo(x, y, ancho, 1, 0, Color.GREEN);
 		e.dibujarRectangulo(x, y+alto/2, ancho, 1, 0, Color.CYAN);
-		e.dibujarRectangulo(x, y-alto/2, ancho, 1, 0, Color.CYAN);
+		e.dibujarRectangulo(x, y-alto/2, ancho, 1, 0, Color.RED);
 	}
 
 	public void moverse(boolean dirMov) { // -x == izq, +x == der
-		if (estaApoyado) {
+//		if (estaApoyado) {
 			if (dirMov) {
 				if (this.x < 800) {
 					this.x += 2;
@@ -58,33 +58,33 @@ public class Bartolome {
 				this.momentum = -1;
 			}
 			this.dir = dirMov;
-		}
+//		}
 	}
 
 	public void movVertical() { // -x == subiendo, +x == bajando
 		if (!estaApoyado && !estaSaltando) {
 			this.y += 2;
-			if(this.momentum==1) {
-				if (this.x < 800) {
-					this.x += 2;
-				}
-			}
-			if(this.momentum==-1) {
-					if (this.x > 0) {
-				this.x -= 2;
-					}
-			}
+//			if(this.momentum==1) {
+//				if (this.x < 800) {
+//					this.x += 2;
+//				}
+//			}
+//			if(this.momentum==-1) {
+//					if (this.x > 0) {
+//				this.x -= 2;
+//					}
+//			}
 		}
 
 		if(estaSaltando) {
 			this.y -= 7;
 			contadorSalto++;
-			if(this.momentum==1 && this.x < 800) {
-				this.x += 2;
-			}
-			if(this.momentum==-1 && this.x > 0) {
-				this.x -= 2;
-			}
+//			if(this.momentum==1 && this.x < 800) {
+//				this.x += 2;
+//			}
+//			if(this.momentum==-1 && this.x > 0) {
+//				this.x -= 2;
+//			}
 		}
 		if(contadorSalto == 20) {
 			contadorSalto = 0;
@@ -121,8 +121,8 @@ public class Bartolome {
 	
 	public boolean detectarColision(Bartolome ba, Bloque bl) {
 		return Math.abs((ba.getTecho() - bl.getPiso())) < 3.5 && 
-				(ba.getIzquierdo()+10 < (bl.getDerecho())) &&
-				(ba.getDerecho() - 10> (bl.getIzquierdo()));		
+				(ba.getIzquierdo() < (bl.getDerecho())) &&
+				(ba.getDerecho() > (bl.getIzquierdo()));		
 	}
 	
 	public boolean detectarColision(Bartolome ba, Piso pi) {
@@ -147,42 +147,54 @@ public class Bartolome {
 		
 		return false;
 	}
-	public static boolean playerInBlockRange(Bartolome ba, Bloque bl) {
-		if (ba.momentum==1) {
-			if (ba.x-bl.x <= 2) {
-				if (ba.y-bl.y>=bl.alto/3 && ba.getTecho()-bl.getTecho()>=bl.alto/3 && ba.getPiso()-bl.getPiso()>=bl.alto/3 &&
-						ba.y-bl.y>bl.y) {
+//	public static boolean playerInBlockRange(Bartolome ba, Bloque bl) {
+//		if (ba.momentum==1) {
+//			if (ba.x-bl.x <= 2) {
+//				if (ba.y-bl.y>=bl.alto/3 && ba.getTecho()-bl.getTecho()>=bl.alto/3 && ba.getPiso()-bl.getPiso()>=bl.alto/3 &&
+//						ba.y-bl.y>bl.y) {
 //							if (bl.isPlayerInside(ba, bl)) {
-							return true;
+//							return true;
 //					}
-				}
-			}
-		}
-		if (ba.momentum==-1) {
-			if (ba.x-bl.x <= -2) {
-				if (ba.y-bl.y>=bl.alto/3 && ba.getTecho()-bl.getTecho()>=bl.alto/3 && ba.getPiso()-bl.getPiso()>=bl.alto/3 &&
-							ba.y-bl.y>bl.y) {
+//				}
+//			}
+//		}
+//		if (ba.momentum==-1) {
+//			if (ba.x-bl.x <= -2) {
+//				if (ba.y-bl.y>=bl.alto/3 && ba.getTecho()-bl.getTecho()>=bl.alto/3 && ba.getPiso()-bl.getPiso()>=bl.alto/3 &&
+//							ba.y-bl.y>bl.y) {
 //					if (bl.isPlayerInside(ba, bl)) {
-							return true;
-						}
+//							return true;
+//						}
 //					}
-				}
-		}
-			return false;
+//				}
+//		}
+//			return false;
+//	}
+	
+	public boolean estaEntre (double x, double min, double max) {
+		return (x>min && x<max);
 	}
-	
-	
 	public boolean DetectarPared(Bartolome ba, Bloque bl) {
-		if (ba.x-bl.x<=bl.ancho*1.1 && ba.x-bl.x >= bl.ancho*-1.1 && 
-				((ba.y == bl.y || ba.y + ba.alto/2 == bl.y + bl.alto/2 || 
-					ba.getTecho() == bl.y || ba.getTecho() == bl.y + bl.alto ||
-					ba.getPiso() == bl.y || ba.getPiso() == bl.y + bl.alto))){
-			return true;
-		} else if(playerInBlockRange(ba, bl)){
-			System.out.println("FUNCIONA EN " + ba.x + ", " + ba.y);
-			return true;
-		}
-		return false;
+		return (ba.getIzquierdo() < bl.getDerecho() && ba.getDerecho() > bl.getIzquierdo() &&
+			    ba.getTecho() < bl.getPiso() && ba.getPiso() > bl.getTecho()); 
+//		if ((estaEntre(ba.getIzquierdo(), bl.getIzquierdo(), bl.getDerecho()) || 
+//				(estaEntre(ba.getDerecho(), bl.getIzquierdo(), bl.getDerecho()))) &&
+//				(estaEntre(ba.getTecho(), bl.getTecho(), bl.getPiso()) || 
+//				estaEntre(ba.getPiso(), bl.getTecho(), bl.getPiso()))) {
+//			System.out.println(ba.getTecho() + " " + ba.getPiso() + " " + bl.getTecho() + " " + bl.getPiso());
+//			return true;
+//		}
+//		return false;
+//		if ((ba.getIzquierdo()<bl.getDerecho() && ba.getIzquierdo()>bl.getIzquierdo()) ||
+//				(ba.getDerecho()<bl.getDerecho() && ba.getDerecho()>bl.getIzquierdo()) &&
+//				((ba.getTecho() < bl.getPiso() && ba.getTecho() < bl.getTecho()) &&
+//					ba.getPiso() > bl.getPiso() && ba.getPiso() > bl.getTecho())){
+//			return true;
+//		} else if(playerInBlockRange(ba, bl)){
+//			System.out.println("FUNCIONA EN " + ba.x + ", " + ba.y);
+//			return true;
+//		}
+//		return false;
 				
 	}
 	public boolean detectarPared(Bartolome ba, Piso pi) {

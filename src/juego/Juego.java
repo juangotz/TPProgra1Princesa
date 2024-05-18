@@ -10,7 +10,7 @@ public class Juego extends InterfaceJuego {
 	Bartolome bart;
 	Piso[] p;
 	Bala bala;
-	
+	int timer = 0;
 	
 	
 	public Juego() {
@@ -39,10 +39,13 @@ public class Juego extends InterfaceJuego {
 	 */
 	public void tick() {
 		// Procesamiento de un instante de tiempo
-		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+		timer--;
+		if(entorno.estaPresionada(entorno.TECLA_SHIFT) && timer < 0) {
+			timer=5;
+		if(entorno.estaPresionada(entorno.TECLA_DERECHA) && !bart.detectarPared(bart, p)) {
 			bart.moverse(true);
 		}
-		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA) && !bart.detectarPared(bart, p)) {
 			bart.moverse(false);
 		}
 		if(bala == null && entorno.estaPresionada(entorno.TECLA_ESPACIO)) {
@@ -53,19 +56,14 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		
-		bart.mostrar(entorno);
 		bart.movVertical();
-		if (!bart.estaApoyado && !bart.estaSaltando && (bart.detectarPared(bart, p))) {
-			bart.momentum=0;
-		}
+//		if (!bart.estaApoyado && !bart.estaSaltando && (bart.detectarPared(bart, p))) {
+//			bart.momentum=0;
+//		}
 
 		if(bala != null) {
 			bala.mostrar(entorno);
 			bala.moverse();
-		}
-		
-		for(int i = 0; i < p.length; i++) {
-			p[i].mostrar(entorno);
 		}
 		
 		if( bala != null && (bala.x < -0.1 * entorno.ancho() 
@@ -90,6 +88,11 @@ public class Juego extends InterfaceJuego {
 //			System.out.println("PARED DETECTADA");
 //		}
 	}
+		bart.mostrar(entorno);
+		for(int i = 0; i < p.length; i++) {
+			p[i].mostrar(entorno);
+		}
+		}
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
