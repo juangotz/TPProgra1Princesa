@@ -55,7 +55,10 @@ public class Juego extends InterfaceJuego {
 		
 		bart.mostrar(entorno);
 		bart.movVertical();
-		
+		if (!bart.estaApoyado && !bart.estaSaltando && (bart.detectarPared(bart, p))) {
+			bart.momentum=0;
+		}
+
 		if(bala != null) {
 			bala.mostrar(entorno);
 			bala.moverse();
@@ -71,7 +74,7 @@ public class Juego extends InterfaceJuego {
 			
 		}
 		
-		if(detectarApoyo(bart, p)) {
+		if(bart.detectarApoyo(bart, p)) {
 			bart.momentum = 0;
 			bart.estaApoyado = true;
 		}
@@ -79,19 +82,13 @@ public class Juego extends InterfaceJuego {
 			bart.estaApoyado = false;
 		}
 		
-		if(detectarColision (bart, p)) {
-			System.out.println("Colision encontrada");
+		if(bart.detectarColision (bart, p)) {
 			bart.estaSaltando = false;
 			bart.contadorSalto = 0;
 		}
-		if(detectarPared(bart, p)){
-			System.out.println("bloque");
-			bart.momentum=0;
-		}
-		else {
-			System.out.println("libre que");
-			bart.puedeMoverse=true;
-		}
+//		if(bart.detectarParedDer(bart, p) || bart.detectarParedIzq(bart, p)) {
+//			System.out.println("PARED DETECTADA");
+//		}
 	}
 	
 	@SuppressWarnings("unused")
@@ -99,84 +96,5 @@ public class Juego extends InterfaceJuego {
 		Juego juego = new Juego();
 	}
 	
-	public boolean detectarApoyo(Bartolome ba, Bloque bl) {
-		return Math.abs((ba.getPiso() - bl.getTecho())) < 2 && 
-				(ba.getIzquierdo() < (bl.getDerecho())) &&
-				(ba.getDerecho() > (bl.getIzquierdo()));		
-	}
 
-	
-	public boolean detectarApoyo(Bartolome ba, Piso pi) {
-		for(int i = 0; i < pi.bloques.length; i++) {
-			if(pi.bloques[i] != null && detectarApoyo(ba, pi.bloques[i])) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean detectarApoyo(Bartolome ba, Piso[] pisos) {
-		for(int i = 0; i < pisos.length; i++) {
-			if(detectarApoyo(ba, pisos[i])) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean detectarColision(Bartolome ba, Bloque bl) {
-		return Math.abs((ba.getTecho() - bl.getPiso())) < 3.5 && 
-				(ba.getIzquierdo()+10 < (bl.getDerecho())) &&
-				(ba.getDerecho() - 10> (bl.getIzquierdo()));		
-	}
-	
-	public boolean detectarColision(Bartolome ba, Piso pi) {
-		for(int i = 0; i < pi.bloques.length; i++) {
-			if(pi.bloques[i] != null && detectarColision(ba, pi.bloques[i])) {
-				if(pi.bloques[i].rompible) {
-					pi.bloques[i] = null;
-				}
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean detectarColision(Bartolome ba, Piso[] pisos) {
-		for(int i = 0; i < pisos.length; i++) {
-			if(detectarColision(ba, pisos[i])) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	public boolean detectarPared(Bartolome ba, Bloque bl) {
-		return (ba.getDerecho() > bl.getIzquierdo() && ba.getIzquierdo() < bl.getDerecho()) &&
-				(ba.getTecho()-5 >  bl.getPiso() && ba.getPiso()+5 < bl.getTecho());
-			
-				
-	}
-	public boolean detectarPared(Bartolome ba, Piso pi) {
-		for(int i = 0; i < pi.bloques.length; i++) {
-			if(pi.bloques[i]!= null && detectarPared(ba, pi.bloques[i])) {
-				System.out.println(pi.y);
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean detectarPared(Bartolome ba, Piso[] pisos) {
-		for (int i = 0; i < pisos.length; i++) {
-			if(detectarPared(ba, pisos[i])) {
-				System.out.println(i);
-				return true;
-			}
-		}
-		return false;
-	}
 }

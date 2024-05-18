@@ -33,6 +33,11 @@ public class Bloque {
 		e.dibujarImagen(sprite, x, y, 0, escala);
 	}
 	
+	public boolean isPlayerInside(Bartolome ba, Bloque bl) {
+		return Math.abs(ba.getPiso() - bl.getTecho()) == bl.alto || Math.abs(ba.getTecho()-bl.getTecho()) == bl.alto || 
+				Math.abs(ba.y-bl.getTecho()) == bl.alto;
+	}
+	
 	
 	public double getTecho(){
 		return y - alto/2;
