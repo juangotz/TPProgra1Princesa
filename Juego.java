@@ -1,5 +1,7 @@
 package juego;
 
+import java.awt.Color;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -10,24 +12,42 @@ public class Juego extends InterfaceJuego {
 	Bartolome bart;
 	Piso[] p;
 	Bala bala;
+	Tiranosaurio enemigo1;
+	Tiranosaurio enemigo2;
+	Tiranosaurio enemigo3;
+	Tiranosaurio enemigo4;
+	Tiranosaurio enemigo5;
 	
+//	Fondo fondo;
 	
-	
+
 	public Juego() {
 		// Inicializa el objeto entorno
 		this.entorno = new Entorno(this, "Prueba del Entorno", 800, 600);
+//		fondo = new Fondo(400,300);
 		bart = new Bartolome(300, 550);
-		p = new Piso[5];
+		enemigo1 = new Tiranosaurio(750, 73);
+		enemigo2 = new Tiranosaurio(500, 190);
+		enemigo3 = new Tiranosaurio(400, 310);
+		enemigo4 = new Tiranosaurio(250, 430);
+		enemigo5 = new Tiranosaurio(100, 550);
+
 		
+//		for(int i = 0; i <=5; i++) {
+//			enemigo[i] = new Tiranosaurio(120 + i * (entorno.alto() / enemigo.length));
+//		}
+		
+		p = new Piso[5];	
 		
 		for(int i = 0; i < p.length; i++) {
 			p[i] = new Piso(120 + i * (entorno.alto() / p.length));
 		}
 		
-		// Inicializar lo que haga falta para el juego
-		// ...
 
-		// Inicia el juego!
+		// Mensajes de depuración
+        System.out.println("Juego iniciado");
+
+        // Inicia el juego!
 		this.entorno.iniciar();
 	}
 
@@ -52,8 +72,27 @@ public class Juego extends InterfaceJuego {
 			bart.estaSaltando = true;
 		}
 		
+//		// Mostrar y mover al enemigo
+		enemigo1.mostrar(entorno);
+		enemigo1.movVertical();
 		
-		bart.mostrar(entorno);
+		enemigo2.mostrar(entorno);
+		enemigo2.movVertical();
+		
+		
+		enemigo3.mostrar(entorno);
+		enemigo3.movVertical();
+		
+		
+		enemigo4.mostrar(entorno);
+		enemigo4.movVertical();
+		
+		
+		enemigo5.mostrar(entorno);
+		enemigo5.movVertical();
+
+	    // Mostrar y caer Bartolome
+	    bart.mostrar(entorno);
 		bart.movVertical();
 		
 		if(bala != null) {
@@ -94,7 +133,7 @@ public class Juego extends InterfaceJuego {
 		}
 	}
 	
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Juego juego = new Juego();
 	}
@@ -179,4 +218,6 @@ public class Juego extends InterfaceJuego {
 		}
 		return false;
 	}
+
+	
 }
