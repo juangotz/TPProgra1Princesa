@@ -38,6 +38,10 @@ public class BalaEnemiga {
 			this.x -= velocidad;
 		}
 	}
+	public boolean detectarBala(BalaEnemiga ble, Bala bl) {
+		return (ble.getIzquierdo() < bl.getDerecho() && ble.getDerecho() > bl.getIzquierdo() &&
+				ble.getTecho() < bl.getPiso() && ble.getPiso() > bl.getTecho()) && ble.dir!=bl.dir;
+	}
 	public double getTecho() {
 		return y - alto / 2;
 	}

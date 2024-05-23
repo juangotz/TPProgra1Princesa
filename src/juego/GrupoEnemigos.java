@@ -8,7 +8,6 @@ public class GrupoEnemigos {
 	
 	public GrupoEnemigos(Piso piss) {
 		tiranosaurios = new Tiranosaurio[2];
-		this.pis = piss;
 		
 		for(int i = 0; i < tiranosaurios.length; i++) {
 			if (i == 0) {

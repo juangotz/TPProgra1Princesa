@@ -4,7 +4,6 @@ import entorno.Entorno;
 
 public class Piso {
 	Bloque[] bloques;
-	GrupoEnemigos enemigos;
 	
 	double y;
 	
@@ -15,7 +14,6 @@ public class Piso {
 		for(int i = 0; i < bloques.length; i++) {
 			bloques[i] = new Bloque((i+0.5)* testigo.ancho, y);
 		}
-			enemigos = new GrupoEnemigos(this);
 	}
 	
 	public void mostrar(Entorno e) {

@@ -17,7 +17,6 @@ public class Bartolome {
 	double alto;
 	double ancho;
 	int contadorSalto;
-	int momentum;
 
 	public Bartolome(double x, double y) {
 		this.x = x;
@@ -26,7 +25,6 @@ public class Bartolome {
 		spriteDer = Herramientas.cargarImagen("body.png");
 		dir = false;
 		contadorSalto = 0;
-		momentum = 0;
 		estaApoyado = false;
 		estaSaltando = false;
 		escala = 0.2;
@@ -51,11 +49,9 @@ public class Bartolome {
 			if (dirMov) {
 				if (this.x < 800) {
 					this.x += 2;
-					this.momentum = 1;	
 				}
 			} else if (this.x > 0){
 				this.x -= 2;
-				this.momentum = -1;
 			}
 			this.dir = dirMov;
 //		}

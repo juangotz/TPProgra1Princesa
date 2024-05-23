@@ -70,15 +70,15 @@ public void movimiento() {
 		this.dir = false;
 	}
 }
-public void disparo(BalaEnemiga ble) {
+public boolean disparo(BalaEnemiga ble) {
 	if(ble==null) {
 		this.contadorDisparo++;
 		if(this.contadorDisparo==30) {
-			System.out.println("Hola");
-			ble = new BalaEnemiga(this.x, this.y, this.dir);
 			this.contadorDisparo=0;
+			return true;
 		}
 	}
+	return false;
 }
 public boolean detectarApoyo(Tiranosaurio e, Bloque bl) {
 	return Math.abs((e.getPiso() - bl.getTecho())) < 2 && 
