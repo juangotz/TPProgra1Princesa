@@ -42,6 +42,10 @@ public class BalaEnemiga {
 		return (ble.getIzquierdo() < bl.getDerecho() && ble.getDerecho() > bl.getIzquierdo() &&
 				ble.getTecho() < bl.getPiso() && ble.getPiso() > bl.getTecho()) && ble.dir!=bl.dir;
 	}
+	public boolean detectarPrincesa(BalaEnemiga ble, Princesa ba) {
+		return (ble.getIzquierdo() < ba.getDerecho() && ble.getDerecho() > ba.getIzquierdo() &&
+					ble.getTecho() < ba.getPiso() && ble.getPiso() > ba.getTecho());
+	}
 	public double getTecho() {
 		return y - alto / 2;
 	}

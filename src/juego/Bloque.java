@@ -7,7 +7,8 @@ import entorno.Herramientas;
 
 public class Bloque {
 	double x, y, alto, ancho, escala;
-	Image sprite;
+	Image spriteR;
+	Image spriteI;
 	boolean rompible; //true = rompible
 	
 	public Bloque(double x, double y) {
@@ -17,20 +18,22 @@ public class Bloque {
 		if(Math.random() > 0.8) {
 			rompible = false;
 		}
-		if(rompible) {
-			sprite = Herramientas.cargarImagen("bloque.jpg");
-		}
-		else {
-			sprite = Herramientas.cargarImagen("bloqueIrrompible.jpg");
-		}
+			spriteR = Herramientas.cargarImagen("bloque.jpg");
+			spriteI = Herramientas.cargarImagen("bloqueIrrompible.jpg");
+	
 		
 		escala = 0.2;
-		alto = sprite.getHeight(null)*escala;
-		ancho = sprite.getWidth(null)*escala;
+		alto = spriteR.getHeight(null)*escala;
+		ancho = spriteR.getWidth(null)*escala;
 	}
 	
 	public void mostrar(Entorno e) {
-		e.dibujarImagen(sprite, x, y, 0, escala);
+		if(rompible) {
+			e.dibujarImagen(spriteR, x, y, 0, escala);
+		}
+		else {
+			e.dibujarImagen(spriteI, x, y, 0, escala);
+		}
 	}
 	
 	public double getTecho(){

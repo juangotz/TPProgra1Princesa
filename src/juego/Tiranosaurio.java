@@ -10,7 +10,6 @@ public class Tiranosaurio {
 	Image spriteIzq;
 	Image spriteDer;
 	boolean dir; // false = Izq 
-	double velocidad;
 	boolean estaApoyado;
 	boolean estaSaltando; //false = no esta saltando
 	double escala;
@@ -25,7 +24,7 @@ public class Tiranosaurio {
 		this.x = x;
 		this.y = y;
 		spriteIzq = Herramientas.cargarImagen("tiranosaurioIzq.jpg");
-		spriteDer = Herramientas.cargarImagen("tiranosaurioDer.jpg");
+		spriteDer = Herramientas.cargarImagen("tiranosaurio.jpg");
 		dir = true;
 		contadorSalto = 0;
 		contadorDisparo = 0;
@@ -127,9 +126,14 @@ public boolean detectarPared(Tiranosaurio ti, Piso[] pisos) {
 	}
 	return false;
 }
+
 public boolean detectarBala(Tiranosaurio ti, Bala bl) {
 	return (ti.getIzquierdo() < bl.getDerecho() && ti.getDerecho() > bl.getIzquierdo() &&
 			ti.getTecho() < bl.getPiso() && ti.getPiso() > bl.getTecho());
+}
+public boolean detectarPrincesa(Tiranosaurio ti, Princesa ba) {
+	return (ti.getIzquierdo() < ba.getDerecho() && ti.getDerecho() > ba.getIzquierdo() &&
+			ti.getTecho() < ba.getPiso() && ti.getPiso() > ba.getTecho());
 }
 public double getTecho() {
 	return y - alto / 2;
