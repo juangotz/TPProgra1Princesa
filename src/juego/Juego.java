@@ -18,7 +18,7 @@ public class Juego extends InterfaceJuego {
 	Tiranosaurio[] enemigos;
 	BalaEnemiga[] balas;
 	Vida vida;
-	boolean gatoRescatado; // True = Termina el juego, false = el juego continua
+	boolean gatoRescatado; // True = Termina el juego
 	boolean empezarJuego; // True = Empieza el juego
 	private int puntaje;
 	private int enemigosEliminados;

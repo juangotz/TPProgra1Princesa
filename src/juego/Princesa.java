@@ -8,12 +8,11 @@ import entorno.Herramientas;
 
 public class Princesa {
 	private double x, y;
-	private Image [] sprites; //
-	// un boolean es una variable que marca si algo es verdadereo o falso
-	private boolean dir; // false = Izq, true = der
-	private boolean estaApoyado; // false = no esta apoyado, true = esta apoyado
-	private boolean estaSaltando; //false = no esta saltando, true = esta saltando
-	private boolean invul; //true = no recibe daño enemigo, false = recibe daño enemigo
+	private Image [] sprites;
+	private boolean dir; // false = Izq
+	private boolean estaApoyado;
+	private boolean estaSaltando; //false = no esta saltando
+	private boolean invul; //true = no recibe daño enemigo
 	private double escala;
 	private double alto;
 	private double ancho;
