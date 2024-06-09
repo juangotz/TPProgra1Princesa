@@ -8,7 +8,7 @@ import entorno.Herramientas;
 public class Vida {
 	private double x, y, escala, ancho, alto;
 	private Image sprite;
-	private boolean estaApoyado;
+	private boolean estaApoyado; // true = esta apoyado, false = no esta apoyado
 	private int contTiempo;
 
 	public Vida(double x, double y) {
