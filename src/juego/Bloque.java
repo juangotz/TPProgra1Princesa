@@ -9,7 +9,7 @@ public class Bloque {
 	private double x, y, alto, ancho, escala;
 	private Image spriteR;
 	private Image spriteI;
-	private boolean rompible; //true = rompible
+	private boolean rompible; //true = rompible, false = irrompible
 	
 	public Bloque(double x, double y) {
 		this.x = x;
