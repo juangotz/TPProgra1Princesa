@@ -7,7 +7,7 @@ import entorno.Herramientas;
 
 public class Bala {
 	private double x, y, escala, alto, ancho, velocidad;
-	private boolean dir; // false = Izq
+	private boolean dir; // false = Izq, true = der
 	private Image spriteIzq;
 	private Image spriteDer;
 
