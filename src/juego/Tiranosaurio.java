@@ -8,9 +8,9 @@ import entorno.Herramientas;
 public class Tiranosaurio {
 	private double x, y;
 	private Image[] sprites;
-	private boolean dir; // false = Izq 
-	private boolean estaApoyado;
-	private boolean puedeDisparar;
+	private boolean dir; // false = Izq, true = der
+	private boolean estaApoyado; // false = no esta apoyado, true = esta apoyado
+	private boolean puedeDisparar; // true = puede disparar, false = no puede disparar
 	private double escala;
 	private double alto;
 	private double ancho;
